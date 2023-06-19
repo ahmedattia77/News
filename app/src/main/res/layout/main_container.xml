@@ -9,44 +9,60 @@
     </data>
 
 
-
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="@dimen/_8sdp"
+        app:cardCornerRadius="@dimen/_4sdp"
         app:cardUseCompatPadding="true"
-        app:cardElevation="@dimen/_4sdp">
+        app:cardElevation="@dimen/_4sdp"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:background="@color/colorMiscellaneousBackground2"
+        >
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/colorMiscellaneousBackground"
-            android:layout_marginBottom="@dimen/_6sdp"
-            android:layout_marginTop="@dimen/_6sdp"
             >
 
             <View
                 android:id="@+id/headerView"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_20sdp"
+                android:layout_height="@dimen/_40sdp"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:background="@color/colorPrimary"
                 />
 
-                <TextView
+
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/imageView"
+                android:layout_width="match_parent"
+                android:layout_height="200sp"
+                android:scaleType="centerCrop"
+                android:layout_margin="@dimen/_4sdp"
+                imageURL="@{article.urlToImage}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:riv_corner_radius="@dimen/_8sdp"
+                />
+
+
+            <TextView
                     android:id="@+id/title"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/_16ssp"
                     android:textColor="@color/colorWhite"
                     android:text="@{article.title}"
                     android:fontFamily="@font/ubuntu_regular"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/headerView"
-                    app:layout_constraintEnd_toStartOf="@+id/imageView"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView"
+                    app:layout_constraintEnd_toStartOf="parent"
                     android:layout_marginEnd="@dimen/_4sdp"
                     android:layout_marginStart="@dimen/_6sdp"
                     android:layout_marginTop="@dimen/_6sdp"
@@ -55,7 +71,7 @@
 
                 <TextView
                     android:id="@+id/name"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/_12ssp"
                     android:textColor="@color/colorAccent"
@@ -73,7 +89,7 @@
 
             <TextView
                 android:id="@+id/date"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/_10ssp"
                 android:textColor="@color/colorIcons"
@@ -82,25 +98,20 @@
                 app:layout_constraintTop_toBottomOf="@+id/name"
                 app:layout_constraintEnd_toStartOf="@+id/imageView"
                 app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginEnd="@dimen/_4sdp"
-                android:layout_marginStart="@dimen/_6sdp"
-                android:layout_marginTop="@dimen/_6sdp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_margin="@dimen/_6sdp"
                 android:includeFontPadding="false"
                 />
 
-            <com.makeramen.roundedimageview.RoundedImageView
-                android:id="@+id/imageView"
-                android:layout_width="@dimen/_100sdp"
-                android:layout_height="0dp"
-                android:scaleType="centerCrop"
-                android:layout_margin="@dimen/_3sdp"
-                imageURL="@{article.urlToImage}"
+            <ImageView
+                android:id="@+id/share"
+                android:layout_width="@dimen/_18sdp"
+                android:layout_height="@dimen/_18sdp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:riv_corner_radius="@dimen/_8sdp"
+                android:layout_margin="@dimen/_6sdp"
+                android:src="@drawable/share_24"
                 />
-
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -1,7 +1,8 @@
 package com.example.news.model;
 
-public class Articles {
+import java.io.Serializable;
 
+public class Articles {
     private Source source;
     private String author;
     private String title;

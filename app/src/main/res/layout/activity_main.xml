@@ -10,7 +10,7 @@
         <import type="android.view.View"/>
     </data>
 
-    
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -18,8 +18,6 @@
         tools:context=".ui.MainActivity"
         android:background="@color/colorPrimary"
         >
-
-
 
         <View
             android:id="@+id/header"
@@ -30,10 +28,8 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            />
 
-            >
-
-        </View>
 
         <TextView
             android:layout_width="wrap_content"
@@ -50,14 +46,14 @@
 
 
         <ImageView
-            android:id="@+id/star"
+            android:id="@+id/filter"
             android:layout_width="@dimen/_20sdp"
             android:layout_height="@dimen/_20sdp"
             app:layout_constraintEnd_toStartOf="@+id/search"
             app:layout_constraintTop_toTopOf="@+id/header"
             app:layout_constraintBottom_toBottomOf="@+id/header"
             android:layout_marginEnd="@dimen/_15sdp"
-            android:src="@drawable/star_1"
+            android:src="@drawable/filter_list_24"
             />
 
         <ImageView
@@ -71,25 +67,194 @@
             android:src="@drawable/search"
             />
 
+        <HorizontalScrollView
+            android:id="@+id/listView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@+id/header"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:visibility="visible"
+            android:background="@null"
+            android:layout_margin="@dimen/_8sdp"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:visibility="gone"
+                >
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/general_bt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="general"
+                    app:backgroundTint="@color/colorMiscellaneousBackground"
+                    android:fontFamily="@font/ubuntu_medium"
+                    android:textColor="@color/colorWhite"
+                    android:layout_marginEnd="@dimen/_8sdp"
+                    />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/business_bt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="business"
+                    app:backgroundTint="@color/colorMiscellaneousBackground"
+                    android:fontFamily="@font/ubuntu_medium"
+                    android:textColor="@color/colorWhite"
+                    android:layout_marginEnd="@dimen/_8sdp"
+                    />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/entertainment_bt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="entertainment"
+                    app:backgroundTint="@color/colorMiscellaneousBackground"
+                    android:fontFamily="@font/ubuntu_medium"
+                    android:textColor="@color/colorWhite"
+                    android:layout_marginEnd="@dimen/_8sdp"
+                    />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/health_bt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="health"
+                    app:backgroundTint="@color/colorMiscellaneousBackground"
+                    android:fontFamily="@font/ubuntu_medium"
+                    android:textColor="@color/colorWhite"
+                    android:layout_marginEnd="@dimen/_8sdp"
+                    />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/science_bt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="science"
+                    app:backgroundTint="@color/colorMiscellaneousBackground"
+                    android:fontFamily="@font/ubuntu_medium"
+                    android:textColor="@color/colorWhite"
+                    android:layout_marginEnd="@dimen/_8sdp"
+                    />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/sports_bt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="sports"
+                    app:backgroundTint="@color/colorMiscellaneousBackground"
+                    android:fontFamily="@font/ubuntu_medium"
+                    android:textColor="@color/colorWhite"
+                    android:layout_marginEnd="@dimen/_8sdp"
+                    />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/technology_bt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="technology"
+                    app:backgroundTint="@color/colorMiscellaneousBackground"
+                    android:fontFamily="@font/ubuntu_medium"
+                    android:textColor="@color/colorWhite"
+                    android:layout_marginEnd="@dimen/_8sdp"
+                    />
+
+            </LinearLayout>
+
+        </HorizontalScrollView>
+
+        <LinearLayout
+            android:id="@+id/country"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@+id/listView"
+            app:layout_constraintBottom_toTopOf="@+id/searchInput"
+            android:layout_marginTop="@dimen/_6sdp"
+            >
+
+            <LinearLayout
+                android:id="@+id/countryList"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:visibility="gone"
+                >
+
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/us_bt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="us"
+                app:backgroundTint="@color/colorMiscellaneousBackground"
+                android:fontFamily="@font/ubuntu_medium"
+                android:textColor="@color/colorWhite"
+                android:layout_marginEnd="@dimen/_8sdp"
+                />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/br_bt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="br"
+                app:backgroundTint="@color/colorMiscellaneousBackground"
+                android:fontFamily="@font/ubuntu_medium"
+                android:textColor="@color/colorWhite"
+                android:layout_marginEnd="@dimen/_8sdp"
+                />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/ua_bt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ua"
+                app:backgroundTint="@color/colorMiscellaneousBackground"
+                android:fontFamily="@font/ubuntu_medium"
+                android:textColor="@color/colorWhite"
+                android:layout_marginEnd="@dimen/_8sdp"
+                />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/it_bt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="it"
+                app:backgroundTint="@color/colorMiscellaneousBackground"
+                android:fontFamily="@font/ubuntu_medium"
+                android:textColor="@color/colorWhite"
+                android:layout_marginEnd="@dimen/_8sdp"
+                />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/searchInput"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:layout_margin="@dimen/_6sdp"
+            android:background="@null"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@+id/country"
+            app:layout_constraintBottom_toTopOf="@+id/main_recycle"
+            />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/main_recycle"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/header" />
-
-
-        <ProgressBar
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:visibility="@{isLoading ? View.VISIBLE : View.GONE , default = gone}"
+            app:layout_constraintTop_toBottomOf="@+id/searchInput"
             />
 
 

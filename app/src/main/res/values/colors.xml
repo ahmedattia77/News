@@ -15,6 +15,7 @@
     <color name="colorDefaultNotesColor">#333333</color>
     <color name="colorNoteSubtitleText">#FAFAFA</color>
     <color name="colorMiscellaneousBackground">#1F1F1F</color>
+    <color name="colorMiscellaneousBackground2">#191919</color>
     <color name="colorQuickActionBackground">#2F2D2E</color>
     <color name="color2">#673AB7</color>
     <color name="colorNoteColor4">#3A52Fc</color>
