@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.SearchActivity"
+        android:background="@color/colorPrimary">
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/search_recycle"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintTop_toBottomOf="@+id/header"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
+
+        <View
+            android:id="@+id/header"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:orientation="horizontal"
+            android:background="@color/colorMiscellaneousBackground"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
+
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:layout_marginEnd="@dimen/_8sdp"
+            android:id="@+id/searchInput"
+            android:layout_weight="1"
+            android:hint="@string/search_news"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:textSize="@dimen/_12sdp"
+            android:textColorHint="@color/colorTextHint"
+            android:fontFamily="@font/ubuntu_regular"
+            android:includeFontPadding="false"
+            android:importantForAutofill="no"
+            android:inputType="text"
+            android:imeOptions="actionDone"
+            app:layout_constraintTop_toTopOf="@+id/header"
+            app:layout_constraintBottom_toBottomOf="@+id/header"
+            app:layout_constraintStart_toEndOf="@+id/back_space"
+            app:layout_constraintEnd_toStartOf="@+id/searchView"
+            />
+
+
+        <ImageView
+            android:id="@+id/back_space"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:src="@drawable/back_24"
+            app:tint="@color/colorWhite"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/header"
+            app:layout_constraintBottom_toBottomOf="@+id/header"
+            android:layout_marginStart="@dimen/_8sdp"
+            />
+
+        <ImageView
+            android:id="@+id/searchView"
+            android:layout_width="@dimen/_18sdp"
+            android:layout_height="@dimen/_18sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/header"
+            app:layout_constraintBottom_toBottomOf="@+id/header"
+            android:layout_marginEnd="@dimen/_8sdp"
+            android:src="@drawable/search"
+            />
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animation_search"
+            android:layout_width="@dimen/_160sdp"
+            android:layout_height="@dimen/_160sdp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:lottie_rawRes="@raw/searching"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            />
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

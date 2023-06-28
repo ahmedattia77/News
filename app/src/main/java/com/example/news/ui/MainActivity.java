@@ -1,7 +1,6 @@
 package com.example.news.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SearchView;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -9,7 +8,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
 
 import com.example.listener.ListenerNewsOnClick;
 import com.example.news.R;
@@ -23,12 +21,11 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements ListenerNewsOnClick {
 
-    private static final String API_KEY = "dfa5f02ac57741e6a6dd779b8c89a57c" ;
+    public static final String API_KEY = "dfa5f02ac57741e6a6dd779b8c89a57c" ;
     private ActivityMainBinding binding;
     private List<Articles> list = new ArrayList<>();
     private NewsAdapter adapter;
     private NewsViewModel newsViewModel;
-    private Context context ;
     private Boolean isOn = false;
     private Boolean searchIsOn = false;
     private String category = "general";
@@ -43,14 +40,15 @@ public class MainActivity extends AppCompatActivity implements ListenerNewsOnCli
         binding = DataBindingUtil.setContentView(this,R.layout.activity_main);
 
        initialization();
+//        setCategory();
+//        setCountry();
+
     }
 
     private void initialization() {
+        binding.setIsLoading(true);
 
         filter();
-        setCategory();
-        setCountry();
-        searchSetup();
 
         list.clear();
         newsViewModel = new ViewModelProvider(this).get(NewsViewModel.class);
@@ -60,13 +58,13 @@ public class MainActivity extends AppCompatActivity implements ListenerNewsOnCli
         adapter.notifyDataSetChanged();
 
 
-        binding.setIsLoading(true);
         newsViewModel.getLiveData(country , category, searchQuery
                 , API_KEY).observe(this, newsResponse -> {
 
             if (newsResponse != null){
+                binding.setIsLoading(false);
                 if (newsResponse.getArticles() != null){
-                    binding.setIsLoading(false);
+                    binding.animationLoading.setVisibility(View.GONE);
                     list.addAll(newsResponse.getArticles());
                     adapter.notifyDataSetChanged();
                 }
@@ -98,50 +96,35 @@ public class MainActivity extends AppCompatActivity implements ListenerNewsOnCli
         });
 
 
-        binding.search.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(!searchIsOn)
-                    binding.searchInput.setVisibility(View.VISIBLE);
-                else
-                    binding.searchInput.setVisibility(View.GONE);
-            }
-        });
-
-
+        binding.search.setOnClickListener( v -> startActivity(new Intent(getApplicationContext() ,
+                SearchActivity.class)));
 
     }
 
+    /*
     private void setCategory (){
 
             binding.businessBt.setOnClickListener(v -> {
-                category = "business";
-                initialization();
+                initialization(null , "business" , "");
             });
             binding.entertainmentBt.setOnClickListener(v -> {
-                category = "entertainment";
-                initialization();
+                initialization(null , "entertainment" , "");
             });
 
             binding.generalBt.setOnClickListener(v -> {
-                category = "general";
-                initialization();
+                initialization(null , "general" , "");
             });
             binding.healthBt.setOnClickListener(v -> {
-                category = "health";
-                initialization();
+                initialization(null , "health" , "");
             });
             binding.scienceBt.setOnClickListener(v -> {
-                category = "science";
-                initialization();
+                initialization(null , "science" , "");
             });
             binding.sportsBt.setOnClickListener(v -> {
-                category = "sports";
-                initialization();
+                initialization(null , "sports" , "");
             });
             binding.technologyBt.setOnClickListener(v -> {
-                category = "technology";
-                initialization();
+                initialization(null , "technology" , "");
             });
 
     }
@@ -167,22 +150,7 @@ public class MainActivity extends AppCompatActivity implements ListenerNewsOnCli
         });
 
     }
-
-    private void searchSetup(){
-        binding.searchInput.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                searchQuery = newText.toString().toLowerCase();
-                initialization();
-                return false;
-            }
-        });
-    }
+    */
 
     @Override
     public void OnNewsClick(Articles articles) {
@@ -203,10 +171,7 @@ public class MainActivity extends AppCompatActivity implements ListenerNewsOnCli
     public void onShareClick(Articles articles) {
         Intent share = new Intent(android.content.Intent.ACTION_SEND);
         share.setType("text/plain");
-//        share.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
 
-        // Add data to the intent, the receiving app will decide
-        // what to do with it.
         share.putExtra(Intent.EXTRA_SUBJECT, articles.getTitle());
         share.putExtra(Intent.EXTRA_TEXT, articles.getUrl());
 
