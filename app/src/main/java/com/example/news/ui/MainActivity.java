@@ -1,13 +1,19 @@
 package com.example.news.ui;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 import com.example.listener.ListenerNewsOnClick;
 import com.example.news.R;
@@ -23,14 +29,12 @@ public class MainActivity extends AppCompatActivity implements ListenerNewsOnCli
 
     public static final String API_KEY = "dfa5f02ac57741e6a6dd779b8c89a57c" ;
     private ActivityMainBinding binding;
-    private List<Articles> list = new ArrayList<>();
+    private List<Articles> list ;
     private NewsAdapter adapter;
     private NewsViewModel newsViewModel;
     private Boolean isOn = false;
     private Boolean searchIsOn = false;
-    private String category = "general";
-    private String country = "us";
-    private String searchQuery = null;
+    private AlertDialog alertDialogFilter;
 
 
 
@@ -39,32 +43,40 @@ public class MainActivity extends AppCompatActivity implements ListenerNewsOnCli
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this,R.layout.activity_main);
 
-       initialization();
-//        setCategory();
-//        setCountry();
+        getData("us");
+        filter();
 
     }
 
-    private void initialization() {
-        binding.setIsLoading(true);
+    private void initialization (){
 
-        filter();
+        if (list != null){
+            list = null;
+            adapter = null;
+        }
 
-        list.clear();
         newsViewModel = new ViewModelProvider(this).get(NewsViewModel.class);
         binding.mainRecycle.setHasFixedSize(true);
+        list = new ArrayList<>();
         adapter = new NewsAdapter(list ,this);
         binding.mainRecycle.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
+        binding.shimmerLayout.startShimmerAnimation();
 
 
-        newsViewModel.getLiveData(country , category, searchQuery
+    }
+
+    private void getData(String country) {
+        initialization();
+
+        newsViewModel.getLiveData(country , "general", null
                 , API_KEY).observe(this, newsResponse -> {
 
             if (newsResponse != null){
                 binding.setIsLoading(false);
                 if (newsResponse.getArticles() != null){
-                    binding.animationLoading.setVisibility(View.GONE);
+                    binding.shimmerLayout.stopShimmerAnimation();
+                    binding.mainRecycle.setVisibility(ViewGroup.VISIBLE);
+                    binding.shimmerLayout.setVisibility(View.GONE);
                     list.addAll(newsResponse.getArticles());
                     adapter.notifyDataSetChanged();
                 }
@@ -76,24 +88,7 @@ public class MainActivity extends AppCompatActivity implements ListenerNewsOnCli
 
     private void filter(){
 
-        binding.filter.setImageResource(R.drawable.baseline_filter_list_off_24);
-
-        binding.filter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(!isOn){
-                    binding.filter.setImageResource(R.drawable.filter_list_24);
-                    binding.listView.setVisibility(View.VISIBLE);
-                    binding.countryList.setVisibility(View.VISIBLE);
-                    isOn = true;
-                }else{
-                    binding.filter.setImageResource(R.drawable.baseline_filter_list_off_24);
-                    binding.listView.setVisibility(View.GONE);
-                    binding.countryList.setVisibility(View.GONE);
-                    isOn = false;
-                }
-            }
-        });
+        binding.filter.setOnClickListener( v -> setupFilter());
 
 
         binding.search.setOnClickListener( v -> startActivity(new Intent(getApplicationContext() ,
@@ -101,56 +96,42 @@ public class MainActivity extends AppCompatActivity implements ListenerNewsOnCli
 
     }
 
-    /*
-    private void setCategory (){
 
-            binding.businessBt.setOnClickListener(v -> {
-                initialization(null , "business" , "");
-            });
-            binding.entertainmentBt.setOnClickListener(v -> {
-                initialization(null , "entertainment" , "");
-            });
+    private void setupFilter (){
 
-            binding.generalBt.setOnClickListener(v -> {
-                initialization(null , "general" , "");
-            });
-            binding.healthBt.setOnClickListener(v -> {
-                initialization(null , "health" , "");
-            });
-            binding.scienceBt.setOnClickListener(v -> {
-                initialization(null , "science" , "");
-            });
-            binding.sportsBt.setOnClickListener(v -> {
-                initialization(null , "sports" , "");
-            });
-            binding.technologyBt.setOnClickListener(v -> {
-                initialization(null , "technology" , "");
-            });
+        if (alertDialogFilter == null) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+            View view = LayoutInflater.from(this).inflate(
+                    R.layout.filter_layout
+                    , (ViewGroup) findViewById(R.id.filterRoot)
+            );
 
-    }
+            builder.setView(view);
+            alertDialogFilter = builder.create();
+
+            if (alertDialogFilter.getWindow() != null) {
+                alertDialogFilter.getWindow().setBackgroundDrawable(new ColorDrawable(0));
+
+                RadioGroup radioGroup = view.findViewById(R.id.radioGroup1);
+                radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(RadioGroup group, int checkedId) {
+                        RadioButton checkedButton = view.findViewById(checkedId);
+                        String country = checkedButton.getText().toString().toLowerCase();
+                        getData(country);
+                    }
+                });
 
 
-    private void setCountry(){
+            }
 
-        binding.usBt.setOnClickListener(v -> {
-            country = "us";
-            initialization();
-        });
-        binding.brBt.setOnClickListener(v -> {
-            country = "br";
-            initialization();
-        });
-        binding.itBt.setOnClickListener(v -> {
-            country = "it";
-            initialization();
-        });
-        binding.uaBt.setOnClickListener(v -> {
-            country = "ua";
-            initialization();
-        });
+            alertDialogFilter.show();
+            alertDialogFilter = null;
+        }
+
 
     }
-    */
+
 
     @Override
     public void OnNewsClick(Articles articles) {

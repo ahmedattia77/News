@@ -8,16 +8,17 @@
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorAccent">#FDBE3B</color>
 
-    <color name="colorSearchIcon">#DBDBDB</color>
-    <color name="colorTextHint">#7B7B7B</color>
+    <color name="colorSearchIcon">#5A5959</color>
+    <color name="colorTextHint">#424242</color>
+
     <color name="colorIcons">#A4A4A4</color>
     <color name="colorTextSubtitles">#CECECE</color>
     <color name="colorDefaultNotesColor">#333333</color>
     <color name="colorNoteSubtitleText">#FAFAFA</color>
     <color name="colorMiscellaneousBackground">#1F1F1F</color>
     <color name="colorMiscellaneousBackground2">#191919</color>
-    <color name="colorQuickActionBackground">#2F2D2E</color>
-    <color name="color2">#673AB7</color>
-    <color name="colorNoteColor4">#3A52Fc</color>
-    <color name="colorColorSearchBackground">#333333</color>
+    <color name="colorNoteColor4">#191919</color>
+    <color name="shimmer">#dddd</color>
+    <color name="shimmer2">#DDA8A4A4</color>
+
 </resources>

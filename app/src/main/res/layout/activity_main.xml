@@ -67,6 +67,27 @@
             android:src="@drawable/search"
             />
 
+        <io.supercharge.shimmerlayout.ShimmerLayout
+            android:id="@+id/shimmer_layout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/header"
+            app:shimmer_animation_duration="1500">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <include layout="@layout/shimmer_main_container" />
+                <include layout="@layout/shimmer_main_container" />
+                <include layout="@layout/shimmer_main_container" />
+            </LinearLayout>
+
+
+
+
+        </io.supercharge.shimmerlayout.ShimmerLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/main_recycle"
@@ -79,18 +100,7 @@
             app:layout_constraintTop_toBottomOf="@+id/header"
             android:layout_marginStart="@dimen/_4sdp"
             android:layout_marginEnd="@dimen/_4sdp"
-            />
-
-
-        <ProgressBar
-            android:id="@+id/animation_loading"
-            android:layout_width="@dimen/_25sdp"
-            android:layout_height="@dimen/_25sdp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:visibility="@{isLoading ? View.VISIBLE : View.GONE , default = gone}"
+            android:visibility="gone"
             />
 
 
